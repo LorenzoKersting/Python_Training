@@ -1,13 +1,16 @@
 # Game Ping-Pong
 
+#Bibliotecas
 from tkinter import *
 import random
 import time
 
+#Variavel que define o level
 level = int(input("Qual nível você gostaria de jogar? 1/2/3/4/5 \n"))
+#Variavel que define tamanho da barra no ping pong
 length = 500/level
 
-
+#Criando visão gráfica
 root = Tk()
 root.title("Ping Pong")
 root.resizable(0,0)
@@ -21,7 +24,7 @@ root.update()
 # Variável
 count = 0
 lost = False
-
+#Classe que passa as propriedades da bola
 class Bola:
     def __init__(self, canvas, Barra, color):
         self.canvas = canvas
@@ -38,7 +41,7 @@ class Bola:
         self.canvas_height = self.canvas.winfo_height()
         self.canvas_width = self.canvas.winfo_width()
 
-
+#Desenhando a bola
     def draw(self):
         self.canvas.move(self.id, self.x, self.y)
 
@@ -74,7 +77,7 @@ class Bola:
             global lost
             lost = True
 
-
+#Classe que define a barra
 class Barra:
     def __init__(self, canvas, color):
         self.canvas = canvas
@@ -87,7 +90,7 @@ class Barra:
 
         self.canvas.bind_all("<KeyPress-Left>", self.move_left)
         self.canvas.bind_all("<KeyPress-Right>", self.move_right)
-
+#Desenhando a barra
     def draw(self):
         self.canvas.move(self.id, self.x, 0)
 
@@ -112,7 +115,7 @@ class Barra:
         if self.pos[2] <= self.canvas_width:
             self.x = 3
 
-
+#Evento que define o iníco do jogo
 def start_game(event):
     global lost, count
     lost = False
@@ -124,14 +127,14 @@ def start_game(event):
     Barra.draw()
     Bola.draw()
 
-
+#Contagem de pontos
 def score():
     canvas.itemconfig(score_now, text="Pontos: " + str(count))
-
+#Se cair aqui tu perdeu :(
 def game_over():
     canvas.itemconfig(game, text="Game over!")
 
-
+#Definições do desenho
 Barra = Barra(canvas, "orange")
 Bola = Bola(canvas, Barra, "purple")
 
